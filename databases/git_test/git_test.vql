@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE git_test '';
+
+ALTER DATABASE git_test
+  CHARSET DEFAULT;
+

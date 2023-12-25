@@ -1,0 +1,30 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_edw_tpcds_git
+    FOLDER = '/0.datasource'
+    DRIVERCLASSNAME = 'oracle.jdbc.OracleDriver'
+    DATABASEURI = '${databases.git_test.folder.0..datasource.datasources.jdbc.ds_edw_tpcds_git.DATABASEURI}'
+    USERNAME = '${databases.git_test.folder.0..datasource.datasources.jdbc.ds_edw_tpcds_git.USERNAME}'
+    USERPASSWORD = '${databases.git_test.folder.0..datasource.datasources.jdbc.ds_edw_tpcds_git.USERPASSWORD}' ${databases.git_test.folder.0..datasource.datasources.jdbc.ds_edw_tpcds_git.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'oracle-21c'
+    DATABASENAME = 'oracle'
+    DATABASEVERSION = '19c'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'SELECT COUNT(*) FROM SYS.DUAL'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    PROPERTIES ('remarksReporting'='false', 'includeSynonyms'='false')
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    );
+
