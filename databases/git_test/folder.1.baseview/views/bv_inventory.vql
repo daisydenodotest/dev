@@ -1,0 +1,44 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_inventory
+    FOLDER = '/1.baseview'
+    DATASOURCENAME=ds_edw_tpcds_git
+    SCHEMANAME='${databases.git_test.folder.1..baseview.views.jdbc.bv_inventory.SCHEMANAME}' 
+    RELATIONNAME='INVENTORY' 
+    OUTPUTSCHEMA (
+        inv_date_sk = 'INV_DATE_SK' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        inv_item_sk = 'INV_ITEM_SK' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        inv_warehouse_sk = 'INV_WAREHOUSE_SK' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        inv_quantity_on_hand = 'INV_QUANTITY_ON_HAND' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007515' PRIMARY KEY ( 'INV_DATE_SK' , 'INV_ITEM_SK' , 'INV_WAREHOUSE_SK' )
+    CONSTRAINT 'INV_D' FOREIGN KEY ( 'INV_DATE_SK' ) 
+    REFERENCES 'EDW_TPCDS'.'DATE_DIM'( 'D_DATE_SK' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    CONSTRAINT 'INV_I' FOREIGN KEY ( 'INV_ITEM_SK' ) 
+    REFERENCES 'EDW_TPCDS'.'ITEM'( 'I_ITEM_SK' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    CONSTRAINT 'INV_W' FOREIGN KEY ( 'INV_WAREHOUSE_SK' ) 
+    REFERENCES 'EDW_TPCDS'.'WAREHOUSE'( 'W_WAREHOUSE_SK' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    INDEX 'SYS_C007515' CLUSTER UNIQUE PRIMARY ( 'INV_DATE_SK' , 'INV_ITEM_SK' , 'INV_WAREHOUSE_SK' );
+
+CREATE OR REPLACE TABLE bv_inventory I18N us_pst (
+        inv_date_sk:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        inv_item_sk:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        inv_warehouse_sk:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        inv_quantity_on_hand:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38')
+    )
+    FOLDER = '/1.baseview'
+    CONSTRAINT 'SYS_C007515' PRIMARY KEY ( 'inv_date_sk' , 'inv_item_sk' , 'inv_warehouse_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_inventory(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD inv_date_sk (any) OPT ANY
+             ADD inv_item_sk (any) OPT ANY
+             ADD inv_warehouse_sk (any) OPT ANY
+             ADD inv_quantity_on_hand (any) OPT ANY
+        )
+        OUTPUTLIST (inv_date_sk, inv_item_sk, inv_quantity_on_hand, inv_warehouse_sk
+        )
+        WRAPPER (jdbc bv_inventory)
+    );
+
