@@ -1,0 +1,110 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_date_dim
+    FOLDER = '/1.baseview'
+    DATASOURCENAME=ds_edw_tpcds_git
+    SCHEMANAME='${databases.git_test.folder.1..baseview.views.jdbc.bv_date_dim.SCHEMANAME}' 
+    RELATIONNAME='DATE_DIM' 
+    OUTPUTSCHEMA (
+        d_date_sk = 'D_DATE_SK' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        d_date_id = 'D_DATE_ID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='CHAR')  NOT NULL SORTABLE,
+        d_date = 'D_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        d_month_seq = 'D_MONTH_SEQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_week_seq = 'D_WEEK_SEQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_quarter_seq = 'D_QUARTER_SEQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_year = 'D_YEAR' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_dow = 'D_DOW' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_moy = 'D_MOY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_dom = 'D_DOM' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_qoy = 'D_QOY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_fy_year = 'D_FY_YEAR' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_fy_quarter_seq = 'D_FY_QUARTER_SEQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_fy_week_seq = 'D_FY_WEEK_SEQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_day_name = 'D_DAY_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='9', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_quarter_name = 'D_QUARTER_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='6', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_holiday = 'D_HOLIDAY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_weekend = 'D_WEEKEND' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_following_holiday = 'D_FOLLOWING_HOLIDAY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_first_dom = 'D_FIRST_DOM' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_last_dom = 'D_LAST_DOM' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_same_day_ly = 'D_SAME_DAY_LY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_same_day_lq = 'D_SAME_DAY_LQ' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE,
+        d_current_day = 'D_CURRENT_DAY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_current_week = 'D_CURRENT_WEEK' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_current_month = 'D_CURRENT_MONTH' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_current_quarter = 'D_CURRENT_QUARTER' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        d_current_year = 'D_CURRENT_YEAR' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007517' PRIMARY KEY ( 'D_DATE_SK' )
+    INDEX 'SYS_C007517' CLUSTER UNIQUE PRIMARY ( 'D_DATE_SK' );
+
+CREATE OR REPLACE TABLE bv_date_dim I18N us_pst (
+        d_date_sk:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_date_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '16'),
+        d_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7'),
+        d_month_seq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_week_seq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_quarter_seq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_year:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_dow:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_moy:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_dom:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_qoy:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_fy_year:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_fy_quarter_seq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_fy_week_seq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_day_name:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '9'),
+        d_quarter_name:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '6'),
+        d_holiday:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_weekend:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_following_holiday:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_first_dom:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_last_dom:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_same_day_ly:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_same_day_lq:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        d_current_day:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_current_week:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_current_month:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_current_quarter:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1'),
+        d_current_year:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '1')
+    )
+    FOLDER = '/1.baseview'
+    CONSTRAINT 'SYS_C007517' PRIMARY KEY ( 'd_date_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_date_dim(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD d_date_sk (any) OPT ANY
+             ADD d_date_id (any) OPT ANY
+             ADD d_date (any) OPT ANY
+             ADD d_month_seq (any) OPT ANY
+             ADD d_week_seq (any) OPT ANY
+             ADD d_quarter_seq (any) OPT ANY
+             ADD d_year (any) OPT ANY
+             ADD d_dow (any) OPT ANY
+             ADD d_moy (any) OPT ANY
+             ADD d_dom (any) OPT ANY
+             ADD d_qoy (any) OPT ANY
+             ADD d_fy_year (any) OPT ANY
+             ADD d_fy_quarter_seq (any) OPT ANY
+             ADD d_fy_week_seq (any) OPT ANY
+             ADD d_day_name (any) OPT ANY
+             ADD d_quarter_name (any) OPT ANY
+             ADD d_holiday (any) OPT ANY
+             ADD d_weekend (any) OPT ANY
+             ADD d_following_holiday (any) OPT ANY
+             ADD d_first_dom (any) OPT ANY
+             ADD d_last_dom (any) OPT ANY
+             ADD d_same_day_ly (any) OPT ANY
+             ADD d_same_day_lq (any) OPT ANY
+             ADD d_current_day (any) OPT ANY
+             ADD d_current_week (any) OPT ANY
+             ADD d_current_month (any) OPT ANY
+             ADD d_current_quarter (any) OPT ANY
+             ADD d_current_year (any) OPT ANY
+        )
+        OUTPUTLIST (d_current_day, d_current_month, d_current_quarter, d_current_week, d_current_year, d_date, d_date_id, d_date_sk, d_day_name, d_dom, d_dow, d_first_dom, d_following_holiday, d_fy_quarter_seq, d_fy_week_seq, d_fy_year, d_holiday, d_last_dom, d_month_seq, d_moy, d_qoy, d_quarter_name, d_quarter_seq, d_same_day_lq, d_same_day_ly, d_week_seq, d_weekend, d_year
+        )
+        WRAPPER (jdbc bv_date_dim)
+    );
+
